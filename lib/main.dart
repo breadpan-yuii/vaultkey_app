@@ -24,6 +24,7 @@ import 'screens/help_screen.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   SystemChrome.setSystemUIOverlayStyle(
     const SystemUiOverlayStyle(
       statusBarColor: Colors.transparent,
@@ -113,7 +114,6 @@ class _PasswordOrganizerAppState extends State<PasswordOrganizerApp> {
 
   void _handleEdit() {
     setState(() {
-      _prevScreen = _screen;
       _screen = AppScreen.edit;
     });
   }
@@ -234,17 +234,24 @@ class _PasswordOrganizerAppState extends State<PasswordOrganizerApp> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.background,
-      body: Stack(
-        children: [
-          Positioned.fill(child: _buildScreen()),
-          if (_showNav)
-            Positioned(
-              left: 0,
-              right: 0,
-              bottom: 0,
-              child: BottomNav(active: _toNavScreen(_screen), onTap: _onNavTap),
+      body: SafeArea(
+        child: Center(
+          child: ConstrainedBox(
+            constraints: const BoxConstraints(maxWidth: 430),
+            child: Stack(
+              children: [
+                Positioned.fill(child: _buildScreen()),
+                if (_showNav)
+                  Positioned(
+                    left: 0,
+                    right: 0,
+                    bottom: 0,
+                    child: BottomNav(active: _toNavScreen(_screen), onTap: _onNavTap),
+                  ),
+              ],
             ),
-        ],
+          ),
+        ),
       ),
     );
   }

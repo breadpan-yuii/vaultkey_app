@@ -15,6 +15,51 @@ class SignupScreen extends StatefulWidget {
 
 class _SignupScreenState extends State<SignupScreen> {
   bool showPw = false;
+  bool showConfirmPw = false;
+  String? nameError;
+  String? emailError;
+  String? passwordError;
+  String? confirmError;
+
+  final nameCtrl = TextEditingController();
+  final emailCtrl = TextEditingController();
+  final pwCtrl = TextEditingController();
+  final confirmCtrl = TextEditingController();
+
+  String _masterStrength = '';
+
+  @override
+  void dispose() {
+    nameCtrl.dispose();
+    emailCtrl.dispose();
+    pwCtrl.dispose();
+    confirmCtrl.dispose();
+    super.dispose();
+  }
+
+  void _updateStrength(String val) {
+    final s = calculateStrength(val);
+    setState(() => _masterStrength = s.name);
+  }
+
+  bool _validate() {
+    setState(() {
+      nameError = nameCtrl.text.trim().isEmpty ? 'Full name is required' : null;
+      emailError = emailCtrl.text.trim().isEmpty || !emailCtrl.text.contains('@')
+          ? 'Enter a valid email'
+          : null;
+      passwordError = pwCtrl.text.length < 6 ? 'At least 6 characters' : null;
+      confirmError = pwCtrl.text != confirmCtrl.text ? 'Passwords do not match' : null;
+    });
+    return nameError == null &&
+        emailError == null &&
+        passwordError == null &&
+        confirmError == null;
+  }
+
+  void _submit() {
+    if (_validate()) widget.onSignup?.call();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -39,21 +84,22 @@ class _SignupScreenState extends State<SignupScreen> {
             const SizedBox(height: 28),
             _buildLabel('Full Name'),
             const SizedBox(height: 6),
-            _buildTextField('Alex Morgan'),
+            _buildTextField(nameCtrl, 'Alex Morgan', error: nameError),
             const SizedBox(height: 14),
             _buildLabel('Email Address'),
             const SizedBox(height: 6),
-            _buildTextField('alex.morgan@gmail.com'),
+            _buildTextField(emailCtrl, 'alex.morgan@gmail.com', error: emailError),
             const SizedBox(height: 14),
             _buildLabel('Master Password'),
             const SizedBox(height: 6),
-            _buildTextField('MyStr0ng!Pass', isPassword: true),
+            _buildTextField(pwCtrl, 'MyStr0ng!Pass', isPassword: true, showToggle: true, error: passwordError, onChanged: _updateStrength),
             const SizedBox(height: 8),
-            const StrengthBars(level: PasswordStrength.strong),
+            if (_masterStrength.isNotEmpty)
+              StrengthBars(level: PasswordStrength.values.firstWhere((s) => s.name == _masterStrength, orElse: () => PasswordStrength.weak)),
             const SizedBox(height: 14),
             _buildLabel('Confirm Password'),
             const SizedBox(height: 6),
-            _buildTextField('MyStr0ng!Pass', isPassword: true),
+            _buildTextField(confirmCtrl, 'MyStr0ng!Pass', isPassword: true, showToggle: false, error: confirmError),
             const SizedBox(height: 14),
             // Info box
             Container(
@@ -85,7 +131,7 @@ class _SignupScreenState extends State<SignupScreen> {
             SizedBox(
               width: double.infinity,
               child: ElevatedButton(
-                onPressed: widget.onSignup,
+                onPressed: _submit,
                 style: ElevatedButton.styleFrom(
                   backgroundColor: AppColors.primary,
                   foregroundColor: Colors.white,
@@ -129,13 +175,21 @@ class _SignupScreenState extends State<SignupScreen> {
     );
   }
 
-  Widget _buildTextField(String initialValue, {bool isPassword = false}) {
+  Widget _buildTextField(
+    TextEditingController controller,
+    String hint, {
+    bool isPassword = false,
+    bool showToggle = false,
+    String? error,
+    ValueChanged<String>? onChanged,
+  }) {
     return TextField(
-      controller: TextEditingController(text: initialValue),
+      controller: controller,
       obscureText: isPassword && !showPw,
+      onChanged: onChanged,
       style: const TextStyle(color: AppColors.textPrimary, fontSize: 15),
       decoration: InputDecoration(
-        suffixIcon: isPassword
+        suffixIcon: isPassword && showToggle
             ? IconButton(
                 icon: Icon(
                   showPw ? Icons.visibility_off_rounded : Icons.visibility_rounded,
@@ -144,15 +198,16 @@ class _SignupScreenState extends State<SignupScreen> {
                 onPressed: () => setState(() => showPw = !showPw),
               )
             : null,
+        errorText: error,
         filled: true,
         fillColor: AppColors.cardBg,
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
-          borderSide: const BorderSide(color: AppColors.cardBorder),
+          borderSide: BorderSide(color: error != null ? AppColors.error : AppColors.cardBorder),
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
-          borderSide: const BorderSide(color: AppColors.cardBorder),
+          borderSide: BorderSide(color: error != null ? AppColors.error : AppColors.cardBorder),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),

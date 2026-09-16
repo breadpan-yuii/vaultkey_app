@@ -9,6 +9,9 @@ class DatabaseHelper {
   static final DatabaseHelper instance = DatabaseHelper._init();
   static Database? _database;
 
+  /// Test-only override so tests can point at an isolated database file.
+  static String? dbDirectoryOverride;
+
   DatabaseHelper._init() {
     // Set the correct database factory for the current platform.
     if (kIsWeb) {
@@ -28,7 +31,7 @@ class DatabaseHelper {
   }
 
   Future<Database> _initDB(String filePath) async {
-    final dbPath = await getDatabasesPath();
+    final dbPath = DatabaseHelper.dbDirectoryOverride ?? await getDatabasesPath();
     final path = join(dbPath, filePath);
     return await openDatabase(path, version: 1, onCreate: _createDB);
   }

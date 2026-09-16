@@ -31,7 +31,15 @@ class _DetailScreenState extends State<DetailScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final pw = widget.pw;
+    final provider = context.watch<PasswordProvider>();
+    PasswordEntry? live;
+    for (final p in provider.passwords) {
+      if (p.id == widget.pw.id) {
+        live = p;
+        break;
+      }
+    }
+    final pw = live ?? widget.pw;
     final cat = categoryMeta[pw.category]!;
 
     return Container(
@@ -253,9 +261,11 @@ class _DetailScreenState extends State<DetailScreen> {
                               Expanded(
                                 child: ElevatedButton(
                                   onPressed: () {
-                                    context.read<PasswordProvider>().deletePassword(int.parse(pw.id));
                                     setState(() => showDeleteDialog = false);
-                                    widget.onBack?.call();
+                                    context
+                                        .read<PasswordProvider>()
+                                        .deletePassword(int.parse(pw.id))
+                                        .whenComplete(widget.onBack ?? () {});
                                   },
                                   style: ElevatedButton.styleFrom(
                                     backgroundColor: AppColors.error,

@@ -10,6 +10,12 @@ class PasswordProvider extends ChangeNotifier {
   List<PasswordEntry> get passwords => _passwords;
   bool get isLoading => _isLoading;
 
+  @visibleForTesting
+  void debugSetPasswords(List<PasswordEntry> pws) {
+    _passwords = List.of(pws);
+    notifyListeners();
+  }
+
   Future<void> loadPasswords() async {
     _isLoading = true;
     notifyListeners();

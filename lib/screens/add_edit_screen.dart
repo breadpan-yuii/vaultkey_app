@@ -58,36 +58,24 @@ class _AddEditScreenState extends State<AddEditScreen> {
 
   void _save() {
     final provider = context.read<PasswordProvider>();
-
-    if (isEditing) {
-      final updated = PasswordEntry(
-        id: widget.pw!.id,
-        title: titleController.text.trim(),
-        username: usernameController.text.trim(),
-        password: passwordController.text,
-        website: websiteController.text.trim(),
-        category: category,
-        strength: strengthLevel,
-        lastUpdated: 'Just now',
-        favorite: widget.pw!.favorite,
-        notes: notesController.text.trim(),
-      );
-      provider.updatePassword(updated);
-    } else {
-      final entry = PasswordEntry(
-        id: '0',
-        title: titleController.text.trim(),
-        username: usernameController.text.trim(),
-        password: passwordController.text,
-        website: websiteController.text.trim(),
-        category: category,
-        strength: strengthLevel,
-        lastUpdated: 'Just now',
-        notes: notesController.text.trim(),
-      );
-      provider.addPassword(entry);
-    }
-    widget.onSave?.call();
+    final created = PasswordEntry(
+      id: isEditing ? widget.pw!.id : '0',
+      title: titleController.text.trim(),
+      username: usernameController.text.trim(),
+      password: passwordController.text,
+      website: websiteController.text.trim(),
+      category: category,
+      strength: strengthLevel,
+      lastUpdated: 'Just now',
+      favorite: widget.pw?.favorite ?? false,
+      notes: notesController.text.trim(),
+    );
+    final future = isEditing
+        ? provider.updatePassword(created)
+        : provider.addPassword(created);
+    future.whenComplete(() {
+      if (mounted) widget.onSave?.call();
+    });
   }
 
   @override
