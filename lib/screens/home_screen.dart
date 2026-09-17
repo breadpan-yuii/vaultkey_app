@@ -285,11 +285,18 @@ class HomeScreen extends StatelessWidget {
           border: Border.all(color: AppColors.cardBorder),
         ),
         child: Column(
+          mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Icon(icon, color: color, size: 18),
             const SizedBox(height: 6),
-            Text(label, style: TextStyle(color: color, fontSize: 12, fontWeight: FontWeight.w600)),
+            Flexible(
+              child: FittedBox(
+                fit: BoxFit.scaleDown,
+                child: Text(label,
+                    style: TextStyle(color: color, fontSize: 12, fontWeight: FontWeight.w600)),
+              ),
+            ),
           ],
         ),
       ),

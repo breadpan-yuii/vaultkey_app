@@ -31,8 +31,14 @@ class DatabaseHelper {
   }
 
   Future<Database> _initDB(String filePath) async {
-    final dbPath = DatabaseHelper.dbDirectoryOverride ?? await getDatabasesPath();
-    final path = join(dbPath, filePath);
+    String path;
+    if (kIsWeb) {
+      // sqflite_common_ffi_web resolves the path itself (stored in IndexedDB).
+      path = filePath;
+    } else {
+      final dbPath = DatabaseHelper.dbDirectoryOverride ?? await getDatabasesPath();
+      path = join(dbPath, filePath);
+    }
     return await openDatabase(path, version: 1, onCreate: _createDB);
   }
 
