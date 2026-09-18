@@ -1,4 +1,5 @@
 import 'dart:io';
+
 import 'package:flutter_test/flutter_test.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 
@@ -17,12 +18,9 @@ void main() {
   test('full CRUD cycle against a real SQLite database', () async {
     final dir = await Directory.systemTemp.createTemp('vaultkey_crud');
     DatabaseHelper.dbDirectoryOverride = dir.path;
-    print('STEP 0: temp dir created: ${dir.path}');
     expect(dir.existsSync(), isTrue);
-    print('STEP 0b: exists true');
 
     final provider = PasswordProvider();
-    print('STEP 1: provider created');
     expect(provider.totalCount, 0);
 
     // CREATE
@@ -37,12 +35,14 @@ void main() {
       lastUpdated: 'Just now',
       notes: 'integration test',
     );
-    print('STEP 2: calling addPassword...');
     await provider.addPassword(entry);
-    print('STEP 3: addPassword done');
     expect(provider.totalCount, 1);
     expect(provider.passwords.first.title, 'TestBank');
-    expect(provider.passwords.first.id, isNot('0'), reason: 'DB must assign a real id');
+    expect(
+      provider.passwords.first.id,
+      isNot('0'),
+      reason: 'DB must assign a real id',
+    );
 
     // READ
     final db = DatabaseHelper.instance;

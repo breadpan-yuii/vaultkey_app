@@ -1,8 +1,12 @@
-import 'package:flutter/foundation.dart' show defaultTargetPlatform, TargetPlatform, kIsWeb;
+import 'package:flutter/foundation.dart'
+    show defaultTargetPlatform, TargetPlatform, kIsWeb;
 import 'package:sqflite/sqflite.dart';
-import 'package:sqflite_common_ffi/sqflite_ffi.dart' show sqfliteFfiInit, databaseFactoryFfi;
-import 'package:sqflite_common_ffi_web/sqflite_ffi_web.dart' show databaseFactoryFfiWeb;
+import 'package:sqflite_common_ffi/sqflite_ffi.dart'
+    show sqfliteFfiInit, databaseFactoryFfi;
+import 'package:sqflite_common_ffi_web/sqflite_ffi_web.dart'
+    show databaseFactoryFfiWeb;
 import 'package:path/path.dart';
+
 import '../models/models.dart';
 
 class DatabaseHelper {
@@ -36,7 +40,8 @@ class DatabaseHelper {
       // sqflite_common_ffi_web resolves the path itself (stored in IndexedDB).
       path = filePath;
     } else {
-      final dbPath = DatabaseHelper.dbDirectoryOverride ?? await getDatabasesPath();
+      final dbPath =
+          DatabaseHelper.dbDirectoryOverride ?? await getDatabasesPath();
       path = join(dbPath, filePath);
     }
     return await openDatabase(path, version: 1, onCreate: _createDB);
@@ -61,7 +66,11 @@ class DatabaseHelper {
 
   Future<int> insertPassword(PasswordEntry pw) async {
     final db = await database;
-    return await db.insert('passwords', _toMap(pw), conflictAlgorithm: ConflictAlgorithm.replace);
+    return await db.insert(
+      'passwords',
+      _toMap(pw),
+      conflictAlgorithm: ConflictAlgorithm.replace,
+    );
   }
 
   Future<List<PasswordEntry>> getAllPasswords() async {
@@ -109,7 +118,9 @@ class DatabaseHelper {
 
   Future<int> countCategories() async {
     final db = await database;
-    final result = await db.rawQuery('SELECT COUNT(DISTINCT category) as count FROM passwords');
+    final result = await db.rawQuery(
+      'SELECT COUNT(DISTINCT category) as count FROM passwords',
+    );
     return Sqflite.firstIntValue(result) ?? 0;
   }
 
@@ -135,7 +146,9 @@ class DatabaseHelper {
       password: map['password'],
       website: map['website'],
       category: Category.values.firstWhere((c) => c.name == map['category']),
-      strength: PasswordStrength.values.firstWhere((s) => s.name == map['strength']),
+      strength: PasswordStrength.values.firstWhere(
+        (s) => s.name == map['strength'],
+      ),
       lastUpdated: map['lastUpdated'],
       favorite: map['favorite'] == 1,
       notes: map['notes'] ?? '',

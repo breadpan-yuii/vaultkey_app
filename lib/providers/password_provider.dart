@@ -1,5 +1,7 @@
 import 'package:flutter/foundation.dart' hide Category;
-import '../models/models.dart' show PasswordEntry, PasswordStrength, Category, mockPasswords;
+
+import '../models/models.dart'
+    show PasswordEntry, PasswordStrength, Category, mockPasswords;
 import '../database/database_helper.dart';
 
 class PasswordProvider extends ChangeNotifier {
@@ -57,9 +59,11 @@ class PasswordProvider extends ChangeNotifier {
   }
 
   int get totalCount => _passwords.length;
-  int get weakCount => _passwords.where((p) => p.strength == PasswordStrength.weak).length;
+  int get weakCount =>
+      _passwords.where((p) => p.strength == PasswordStrength.weak).length;
   int get categoryCount => _passwords.map((p) => p.category).toSet().length;
-  List<PasswordEntry> get favorites => _passwords.where((p) => p.favorite).toList();
+  List<PasswordEntry> get favorites =>
+      _passwords.where((p) => p.favorite).toList();
   List<PasswordEntry> get recent => _passwords.take(4).toList();
 
   int get securityScore {
@@ -87,12 +91,15 @@ class PasswordProvider extends ChangeNotifier {
   List<PasswordEntry> search(String query) {
     if (query.isEmpty) return [];
     final q = query.toLowerCase();
-    return _passwords.where((p) =>
-      p.title.toLowerCase().contains(q) ||
-      p.username.toLowerCase().contains(q) ||
-      p.website.toLowerCase().contains(q) ||
-      p.notes.toLowerCase().contains(q)
-    ).toList();
+    return _passwords
+        .where(
+          (p) =>
+              p.title.toLowerCase().contains(q) ||
+              p.username.toLowerCase().contains(q) ||
+              p.website.toLowerCase().contains(q) ||
+              p.notes.toLowerCase().contains(q),
+        )
+        .toList();
   }
 
   List<PasswordEntry> filterByCategory(Category? category) {

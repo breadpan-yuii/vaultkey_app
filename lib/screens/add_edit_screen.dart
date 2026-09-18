@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
 import '../theme/app_colors.dart';
 import '../models/models.dart';
 import '../providers/password_provider.dart';
@@ -48,7 +49,8 @@ class _AddEditScreenState extends State<AddEditScreen> {
     super.dispose();
   }
 
-  PasswordStrength get strengthLevel => calculateStrength(passwordController.text);
+  PasswordStrength get strengthLevel =>
+      calculateStrength(passwordController.text);
 
   void generatePassword() {
     setState(() {
@@ -93,12 +95,19 @@ class _AddEditScreenState extends State<AddEditScreen> {
               children: [
                 GestureDetector(
                   onTap: widget.onBack,
-                  child: const Icon(Icons.chevron_left_rounded, color: AppColors.textMuted),
+                  child: const Icon(
+                    Icons.chevron_left_rounded,
+                    color: AppColors.textMuted,
+                  ),
                 ),
                 const SizedBox(width: 14),
                 Text(
                   isEditing ? 'Edit Password' : 'Add Password',
-                  style: const TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.w800),
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 18,
+                    fontWeight: FontWeight.w800,
+                  ),
                 ),
               ],
             ),
@@ -127,24 +136,53 @@ class _AddEditScreenState extends State<AddEditScreen> {
                     controller: passwordController,
                     obscureText: !showPw,
                     onChanged: (_) => setState(() {}),
-                    style: const TextStyle(color: AppColors.textPrimary, fontSize: 14, fontFamily: 'JetBrains Mono'),
+                    style: const TextStyle(
+                      color: AppColors.textPrimary,
+                      fontSize: 14,
+                      fontFamily: 'JetBrains Mono',
+                    ),
                     decoration: InputDecoration(
                       hintText: 'Enter or generate a password',
-                      hintStyle: TextStyle(color: AppColors.textMuted.withOpacity(0.3)),
+                      hintStyle: TextStyle(
+                        color: AppColors.textMuted.withValues(alpha: 0.3),
+                      ),
                       filled: true,
                       fillColor: AppColors.cardBg,
-                      border: OutlineInputBorder(borderRadius: BorderRadius.circular(12), borderSide: const BorderSide(color: AppColors.cardBorder)),
-                      enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(12), borderSide: const BorderSide(color: AppColors.cardBorder)),
-                      contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 13),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(12),
+                        borderSide: const BorderSide(
+                          color: AppColors.cardBorder,
+                        ),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(12),
+                        borderSide: const BorderSide(
+                          color: AppColors.cardBorder,
+                        ),
+                      ),
+                      contentPadding: const EdgeInsets.symmetric(
+                        horizontal: 16,
+                        vertical: 13,
+                      ),
                       suffixIcon: Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           IconButton(
-                            icon: Icon(showPw ? Icons.visibility_off_rounded : Icons.visibility_rounded, color: AppColors.textMuted.withOpacity(0.5), size: 15),
+                            icon: Icon(
+                              showPw
+                                  ? Icons.visibility_off_rounded
+                                  : Icons.visibility_rounded,
+                              color: AppColors.textMuted.withValues(alpha: 0.5),
+                              size: 15,
+                            ),
                             onPressed: () => setState(() => showPw = !showPw),
                           ),
                           IconButton(
-                            icon: Icon(Icons.refresh_rounded, color: AppColors.primary, size: 15),
+                            icon: Icon(
+                              Icons.refresh_rounded,
+                              color: AppColors.primary,
+                              size: 15,
+                            ),
                             onPressed: generatePassword,
                           ),
                         ],
@@ -167,18 +205,42 @@ class _AddEditScreenState extends State<AddEditScreen> {
                       return GestureDetector(
                         onTap: () => setState(() => category = cat),
                         child: Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 7),
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 14,
+                            vertical: 7,
+                          ),
                           decoration: BoxDecoration(
                             color: isActive ? m.bg : AppColors.cardBg,
                             borderRadius: BorderRadius.circular(20),
-                            border: Border.all(color: isActive ? m.color : AppColors.cardBorder),
+                            border: Border.all(
+                              color: isActive ? m.color : AppColors.cardBorder,
+                            ),
                           ),
                           child: Row(
                             mainAxisSize: MainAxisSize.min,
                             children: [
-                              Icon(m.icon, size: 14, color: isActive ? m.color : AppColors.textMuted.withOpacity(0.5)),
+                              Icon(
+                                m.icon,
+                                size: 14,
+                                color: isActive
+                                    ? m.color
+                                    : AppColors.textMuted.withValues(
+                                        alpha: 0.5,
+                                      ),
+                              ),
                               const SizedBox(width: 4),
-                              Text(m.label, style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: isActive ? m.color : AppColors.textMuted.withOpacity(0.5))),
+                              Text(
+                                m.label,
+                                style: TextStyle(
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w600,
+                                  color: isActive
+                                      ? m.color
+                                      : AppColors.textMuted.withValues(
+                                          alpha: 0.5,
+                                        ),
+                                ),
+                              ),
                             ],
                           ),
                         ),
@@ -191,15 +253,33 @@ class _AddEditScreenState extends State<AddEditScreen> {
                   TextField(
                     controller: notesController,
                     maxLines: 3,
-                    style: const TextStyle(color: AppColors.textPrimary, fontSize: 14),
+                    style: const TextStyle(
+                      color: AppColors.textPrimary,
+                      fontSize: 14,
+                    ),
                     decoration: InputDecoration(
                       hintText: 'Add any notes about this account…',
-                      hintStyle: TextStyle(color: AppColors.textMuted.withOpacity(0.3)),
+                      hintStyle: TextStyle(
+                        color: AppColors.textMuted.withValues(alpha: 0.3),
+                      ),
                       filled: true,
                       fillColor: AppColors.cardBg,
-                      border: OutlineInputBorder(borderRadius: BorderRadius.circular(12), borderSide: const BorderSide(color: AppColors.cardBorder)),
-                      enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(12), borderSide: const BorderSide(color: AppColors.cardBorder)),
-                      contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 13),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(12),
+                        borderSide: const BorderSide(
+                          color: AppColors.cardBorder,
+                        ),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(12),
+                        borderSide: const BorderSide(
+                          color: AppColors.cardBorder,
+                        ),
+                      ),
+                      contentPadding: const EdgeInsets.symmetric(
+                        horizontal: 16,
+                        vertical: 13,
+                      ),
                     ),
                   ),
                   const SizedBox(height: 20),
@@ -211,12 +291,17 @@ class _AddEditScreenState extends State<AddEditScreen> {
                         backgroundColor: AppColors.primary,
                         foregroundColor: Colors.white,
                         padding: const EdgeInsets.symmetric(vertical: 15),
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(14),
+                        ),
                         elevation: 0,
                       ),
                       child: Text(
                         isEditing ? 'Save Changes' : 'Add to Vault',
-                        style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w700),
+                        style: const TextStyle(
+                          fontSize: 15,
+                          fontWeight: FontWeight.w700,
+                        ),
                       ),
                     ),
                   ),
@@ -230,7 +315,15 @@ class _AddEditScreenState extends State<AddEditScreen> {
   }
 
   Widget _buildLabel(String text) {
-    return Text(text.toUpperCase(), style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: AppColors.textMuted.withOpacity(0.55), letterSpacing: 0.04));
+    return Text(
+      text.toUpperCase(),
+      style: TextStyle(
+        fontSize: 12,
+        fontWeight: FontWeight.w600,
+        color: AppColors.textMuted.withValues(alpha: 0.55),
+        letterSpacing: 0.04,
+      ),
+    );
   }
 
   Widget _buildTextField(TextEditingController controller, String placeholder) {
@@ -239,12 +332,21 @@ class _AddEditScreenState extends State<AddEditScreen> {
       style: const TextStyle(color: AppColors.textPrimary, fontSize: 15),
       decoration: InputDecoration(
         hintText: placeholder,
-        hintStyle: TextStyle(color: AppColors.textMuted.withOpacity(0.3)),
+        hintStyle: TextStyle(color: AppColors.textMuted.withValues(alpha: 0.3)),
         filled: true,
         fillColor: AppColors.cardBg,
-        border: OutlineInputBorder(borderRadius: BorderRadius.circular(12), borderSide: const BorderSide(color: AppColors.cardBorder)),
-        enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(12), borderSide: const BorderSide(color: AppColors.cardBorder)),
-        contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 13),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(12),
+          borderSide: const BorderSide(color: AppColors.cardBorder),
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(12),
+          borderSide: const BorderSide(color: AppColors.cardBorder),
+        ),
+        contentPadding: const EdgeInsets.symmetric(
+          horizontal: 16,
+          vertical: 13,
+        ),
       ),
     );
   }

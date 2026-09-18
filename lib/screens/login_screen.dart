@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import '../theme/app_colors.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -41,22 +42,33 @@ class _LoginScreenState extends State<LoginScreen> {
                 borderRadius: BorderRadius.circular(18),
                 boxShadow: [
                   BoxShadow(
-                    color: AppColors.primary.withOpacity(0.4),
+                    color: AppColors.primary.withValues(alpha: 0.4),
                     blurRadius: 24,
                   ),
                 ],
               ),
-              child: const Icon(Icons.lock_rounded, size: 28, color: Colors.white),
+              child: const Icon(
+                Icons.lock_rounded,
+                size: 28,
+                color: Colors.white,
+              ),
             ),
             const SizedBox(height: 20),
             const Text(
               'Welcome back',
-              style: TextStyle(fontSize: 28, fontWeight: FontWeight.w800, color: Colors.white),
+              style: TextStyle(
+                fontSize: 28,
+                fontWeight: FontWeight.w800,
+                color: Colors.white,
+              ),
             ),
             const SizedBox(height: 6),
             Text(
               'Unlock your vault to continue',
-              style: TextStyle(color: AppColors.textMuted.withOpacity(0.45), fontSize: 14),
+              style: TextStyle(
+                color: AppColors.textMuted.withValues(alpha: 0.45),
+                fontSize: 14,
+              ),
             ),
             const SizedBox(height: 32),
             // Biometric button
@@ -66,10 +78,10 @@ class _LoginScreenState extends State<LoginScreen> {
                 width: double.infinity,
                 padding: const EdgeInsets.all(24),
                 decoration: BoxDecoration(
-                  color: AppColors.primary.withOpacity(0.06),
+                  color: AppColors.primary.withValues(alpha: 0.06),
                   borderRadius: BorderRadius.circular(20),
                   border: Border.all(
-                    color: AppColors.primary.withOpacity(0.4),
+                    color: AppColors.primary.withValues(alpha: 0.4),
                     width: 1.5,
                     strokeAlign: BorderSide.strokeAlignInside,
                   ),
@@ -90,7 +102,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     Text(
                       'Face ID or Fingerprint',
                       style: TextStyle(
-                        color: AppColors.textMuted.withOpacity(0.35),
+                        color: AppColors.textMuted.withValues(alpha: 0.35),
                         fontSize: 12,
                       ),
                     ),
@@ -102,15 +114,26 @@ class _LoginScreenState extends State<LoginScreen> {
             // Divider
             Row(
               children: [
-                Expanded(child: Divider(color: AppColors.textMuted.withOpacity(0.1))),
+                Expanded(
+                  child: Divider(
+                    color: AppColors.textMuted.withValues(alpha: 0.1),
+                  ),
+                ),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 12),
                   child: Text(
                     'or sign in with master password',
-                    style: TextStyle(color: AppColors.textMuted.withOpacity(0.35), fontSize: 12),
+                    style: TextStyle(
+                      color: AppColors.textMuted.withValues(alpha: 0.35),
+                      fontSize: 12,
+                    ),
                   ),
                 ),
-                Expanded(child: Divider(color: AppColors.textMuted.withOpacity(0.1))),
+                Expanded(
+                  child: Divider(
+                    color: AppColors.textMuted.withValues(alpha: 0.1),
+                  ),
+                ),
               ],
             ),
             const SizedBox(height: 24),
@@ -145,10 +168,15 @@ class _LoginScreenState extends State<LoginScreen> {
                   backgroundColor: AppColors.primary,
                   foregroundColor: Colors.white,
                   padding: const EdgeInsets.symmetric(vertical: 16),
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(16),
+                  ),
                   elevation: 0,
                 ),
-                child: const Text('Unlock Vault', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700)),
+                child: const Text(
+                  'Unlock Vault',
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
+                ),
               ),
             ),
             const SizedBox(height: 20),
@@ -157,13 +185,20 @@ class _LoginScreenState extends State<LoginScreen> {
               children: [
                 Text(
                   'New here? ',
-                  style: TextStyle(color: AppColors.textMuted.withOpacity(0.4), fontSize: 14),
+                  style: TextStyle(
+                    color: AppColors.textMuted.withValues(alpha: 0.4),
+                    fontSize: 14,
+                  ),
                 ),
                 GestureDetector(
                   onTap: widget.onSignup,
                   child: const Text(
                     'Create an account',
-                    style: TextStyle(color: AppColors.primary, fontSize: 14, fontWeight: FontWeight.w600),
+                    style: TextStyle(
+                      color: AppColors.primary,
+                      fontSize: 14,
+                      fontWeight: FontWeight.w600,
+                    ),
                   ),
                 ),
               ],
@@ -180,13 +215,16 @@ class _LoginScreenState extends State<LoginScreen> {
       style: TextStyle(
         fontSize: 12,
         fontWeight: FontWeight.w600,
-        color: AppColors.textMuted.withOpacity(0.55),
+        color: AppColors.textMuted.withValues(alpha: 0.55),
         letterSpacing: 0.04,
       ),
     );
   }
 
-  Widget _buildTextField(TextEditingController controller, {bool isPassword = false}) {
+  Widget _buildTextField(
+    TextEditingController controller, {
+    bool isPassword = false,
+  }) {
     return TextField(
       controller: controller,
       obscureText: isPassword && !showPw,
@@ -195,8 +233,10 @@ class _LoginScreenState extends State<LoginScreen> {
         suffixIcon: isPassword
             ? IconButton(
                 icon: Icon(
-                  showPw ? Icons.visibility_off_rounded : Icons.visibility_rounded,
-                  color: AppColors.textMuted.withOpacity(0.4),
+                  showPw
+                      ? Icons.visibility_off_rounded
+                      : Icons.visibility_rounded,
+                  color: AppColors.textMuted.withValues(alpha: 0.4),
                 ),
                 onPressed: () => setState(() => showPw = !showPw),
               )
@@ -215,7 +255,10 @@ class _LoginScreenState extends State<LoginScreen> {
           borderRadius: BorderRadius.circular(12),
           borderSide: const BorderSide(color: AppColors.primary, width: 1.5),
         ),
-        contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+        contentPadding: const EdgeInsets.symmetric(
+          horizontal: 16,
+          vertical: 14,
+        ),
       ),
     );
   }

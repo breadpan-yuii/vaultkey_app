@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import '../theme/app_colors.dart';
 import '../widgets/shared_widgets.dart';
 import '../models/models.dart';
@@ -45,11 +46,14 @@ class _SignupScreenState extends State<SignupScreen> {
   bool _validate() {
     setState(() {
       nameError = nameCtrl.text.trim().isEmpty ? 'Full name is required' : null;
-      emailError = emailCtrl.text.trim().isEmpty || !emailCtrl.text.contains('@')
+      emailError =
+          emailCtrl.text.trim().isEmpty || !emailCtrl.text.contains('@')
           ? 'Enter a valid email'
           : null;
       passwordError = pwCtrl.text.length < 6 ? 'At least 6 characters' : null;
-      confirmError = pwCtrl.text != confirmCtrl.text ? 'Passwords do not match' : null;
+      confirmError = pwCtrl.text != confirmCtrl.text
+          ? 'Passwords do not match'
+          : null;
     });
     return nameError == null &&
         emailError == null &&
@@ -74,12 +78,19 @@ class _SignupScreenState extends State<SignupScreen> {
             const SizedBox(height: 16),
             const Text(
               'Create Account',
-              style: TextStyle(fontSize: 28, fontWeight: FontWeight.w800, color: Colors.white),
+              style: TextStyle(
+                fontSize: 28,
+                fontWeight: FontWeight.w800,
+                color: Colors.white,
+              ),
             ),
             const SizedBox(height: 6),
             Text(
               'Set up your secure vault',
-              style: TextStyle(color: AppColors.textMuted.withOpacity(0.45), fontSize: 14),
+              style: TextStyle(
+                color: AppColors.textMuted.withValues(alpha: 0.45),
+                fontSize: 14,
+              ),
             ),
             const SizedBox(height: 28),
             _buildLabel('Full Name'),
@@ -88,37 +99,65 @@ class _SignupScreenState extends State<SignupScreen> {
             const SizedBox(height: 14),
             _buildLabel('Email Address'),
             const SizedBox(height: 6),
-            _buildTextField(emailCtrl, 'alex.morgan@gmail.com', error: emailError),
+            _buildTextField(
+              emailCtrl,
+              'alex.morgan@gmail.com',
+              error: emailError,
+            ),
             const SizedBox(height: 14),
             _buildLabel('Master Password'),
             const SizedBox(height: 6),
-            _buildTextField(pwCtrl, 'MyStr0ng!Pass', isPassword: true, showToggle: true, error: passwordError, onChanged: _updateStrength),
+            _buildTextField(
+              pwCtrl,
+              'MyStr0ng!Pass',
+              isPassword: true,
+              showToggle: true,
+              error: passwordError,
+              onChanged: _updateStrength,
+            ),
             const SizedBox(height: 8),
             if (_masterStrength.isNotEmpty)
-              StrengthBars(level: PasswordStrength.values.firstWhere((s) => s.name == _masterStrength, orElse: () => PasswordStrength.weak)),
+              StrengthBars(
+                level: PasswordStrength.values.firstWhere(
+                  (s) => s.name == _masterStrength,
+                  orElse: () => PasswordStrength.weak,
+                ),
+              ),
             const SizedBox(height: 14),
             _buildLabel('Confirm Password'),
             const SizedBox(height: 6),
-            _buildTextField(confirmCtrl, 'MyStr0ng!Pass', isPassword: true, showToggle: false, error: confirmError),
+            _buildTextField(
+              confirmCtrl,
+              'MyStr0ng!Pass',
+              isPassword: true,
+              showToggle: false,
+              error: confirmError,
+            ),
             const SizedBox(height: 14),
             // Info box
             Container(
               padding: const EdgeInsets.all(12),
               decoration: BoxDecoration(
-                color: AppColors.primary.withOpacity(0.06),
+                color: AppColors.primary.withValues(alpha: 0.06),
                 borderRadius: BorderRadius.circular(12),
-                border: Border.all(color: AppColors.primary.withOpacity(0.2)),
+                border: Border.all(
+                  color: AppColors.primary.withValues(alpha: 0.2),
+                ),
               ),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Icon(Icons.shield_rounded, size: 16, color: AppColors.primary),
+                  Icon(
+                    Icons.shield_rounded,
+                    size: 16,
+                    color: AppColors.primary,
+                  ),
                   const SizedBox(width: 10),
                   Expanded(
                     child: Text(
                       'Your master password is never stored. We can\'t recover it if lost. Store it safely.',
                       style: TextStyle(
-                        color: AppColors.textMuted.withOpacity(0.55),
+                        color: AppColors.textMuted.withValues(alpha: 0.55),
                         fontSize: 12,
                         height: 1.5,
                       ),
@@ -136,10 +175,15 @@ class _SignupScreenState extends State<SignupScreen> {
                   backgroundColor: AppColors.primary,
                   foregroundColor: Colors.white,
                   padding: const EdgeInsets.symmetric(vertical: 16),
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(16),
+                  ),
                   elevation: 0,
                 ),
-                child: const Text('Create Vault', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700)),
+                child: const Text(
+                  'Create Vault',
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
+                ),
               ),
             ),
           ],
@@ -153,10 +197,16 @@ class _SignupScreenState extends State<SignupScreen> {
       onTap: widget.onBack,
       child: Row(
         children: [
-          Icon(Icons.chevron_left_rounded, color: AppColors.textMuted.withOpacity(0.6)),
+          Icon(
+            Icons.chevron_left_rounded,
+            color: AppColors.textMuted.withValues(alpha: 0.6),
+          ),
           Text(
             'Back',
-            style: TextStyle(color: AppColors.textMuted.withOpacity(0.6), fontSize: 14),
+            style: TextStyle(
+              color: AppColors.textMuted.withValues(alpha: 0.6),
+              fontSize: 14,
+            ),
           ),
         ],
       ),
@@ -169,7 +219,7 @@ class _SignupScreenState extends State<SignupScreen> {
       style: TextStyle(
         fontSize: 12,
         fontWeight: FontWeight.w600,
-        color: AppColors.textMuted.withOpacity(0.55),
+        color: AppColors.textMuted.withValues(alpha: 0.55),
         letterSpacing: 0.04,
       ),
     );
@@ -192,8 +242,10 @@ class _SignupScreenState extends State<SignupScreen> {
         suffixIcon: isPassword && showToggle
             ? IconButton(
                 icon: Icon(
-                  showPw ? Icons.visibility_off_rounded : Icons.visibility_rounded,
-                  color: AppColors.textMuted.withOpacity(0.4),
+                  showPw
+                      ? Icons.visibility_off_rounded
+                      : Icons.visibility_rounded,
+                  color: AppColors.textMuted.withValues(alpha: 0.4),
                 ),
                 onPressed: () => setState(() => showPw = !showPw),
               )
@@ -203,17 +255,24 @@ class _SignupScreenState extends State<SignupScreen> {
         fillColor: AppColors.cardBg,
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
-          borderSide: BorderSide(color: error != null ? AppColors.error : AppColors.cardBorder),
+          borderSide: BorderSide(
+            color: error != null ? AppColors.error : AppColors.cardBorder,
+          ),
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
-          borderSide: BorderSide(color: error != null ? AppColors.error : AppColors.cardBorder),
+          borderSide: BorderSide(
+            color: error != null ? AppColors.error : AppColors.cardBorder,
+          ),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
           borderSide: const BorderSide(color: AppColors.primary, width: 1.5),
         ),
-        contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+        contentPadding: const EdgeInsets.symmetric(
+          horizontal: 16,
+          vertical: 14,
+        ),
       ),
     );
   }

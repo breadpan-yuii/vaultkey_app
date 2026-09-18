@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
 import '../theme/app_colors.dart';
 import '../providers/password_provider.dart';
 import '../models/models.dart';
@@ -21,16 +22,28 @@ class NotificationsScreen extends StatelessWidget {
               Container(
                 padding: const EdgeInsets.fromLTRB(12, 12, 20, 16),
                 decoration: const BoxDecoration(
-                  border: Border(bottom: BorderSide(color: AppColors.cardBorder)),
+                  border: Border(
+                    bottom: BorderSide(color: AppColors.cardBorder),
+                  ),
                 ),
                 child: Row(
                   children: [
                     GestureDetector(
                       onTap: onBack,
-                      child: const Icon(Icons.chevron_left_rounded, color: AppColors.textMuted),
+                      child: const Icon(
+                        Icons.chevron_left_rounded,
+                        color: AppColors.textMuted,
+                      ),
                     ),
                     const SizedBox(width: 14),
-                    const Text('Notifications', style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.w800)),
+                    const Text(
+                      'Notifications',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 18,
+                        fontWeight: FontWeight.w800,
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -40,9 +53,21 @@ class NotificationsScreen extends StatelessWidget {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Icon(Icons.notifications_off_rounded, size: 48, color: AppColors.textMuted.withOpacity(0.3)),
+                            Icon(
+                              Icons.notifications_off_rounded,
+                              size: 48,
+                              color: AppColors.textMuted.withValues(alpha: 0.3),
+                            ),
                             const SizedBox(height: 16),
-                            Text('No notifications', style: TextStyle(color: AppColors.textMuted.withOpacity(0.5), fontSize: 15)),
+                            Text(
+                              'No notifications',
+                              style: TextStyle(
+                                color: AppColors.textMuted.withValues(
+                                  alpha: 0.5,
+                                ),
+                                fontSize: 15,
+                              ),
+                            ),
                           ],
                         ),
                       )
@@ -66,22 +91,52 @@ class NotificationsScreen extends StatelessWidget {
                                   width: 8,
                                   height: 8,
                                   margin: const EdgeInsets.only(top: 5),
-                                  decoration: BoxDecoration(shape: BoxShape.circle, color: n.color),
+                                  decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    color: n.color,
+                                  ),
                                 ),
                                 const SizedBox(width: 12),
                                 Expanded(
                                   child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
                                       Row(
-                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
                                         children: [
-                                          Expanded(child: Text(n.title, style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w700, fontSize: 14))),
-                                          Text(n.time, style: TextStyle(color: AppColors.textMuted.withOpacity(0.3), fontSize: 11)),
+                                          Expanded(
+                                            child: Text(
+                                              n.title,
+                                              style: const TextStyle(
+                                                color: Colors.white,
+                                                fontWeight: FontWeight.w700,
+                                                fontSize: 14,
+                                              ),
+                                            ),
+                                          ),
+                                          Text(
+                                            n.time,
+                                            style: TextStyle(
+                                              color: AppColors.textMuted
+                                                  .withValues(alpha: 0.3),
+                                              fontSize: 11,
+                                            ),
+                                          ),
                                         ],
                                       ),
                                       const SizedBox(height: 4),
-                                      Text(n.body, style: TextStyle(color: AppColors.textMuted.withOpacity(0.55), fontSize: 13, height: 1.5)),
+                                      Text(
+                                        n.body,
+                                        style: TextStyle(
+                                          color: AppColors.textMuted.withValues(
+                                            alpha: 0.55,
+                                          ),
+                                          fontSize: 13,
+                                          height: 1.5,
+                                        ),
+                                      ),
                                     ],
                                   ),
                                 ),
@@ -98,7 +153,8 @@ class NotificationsScreen extends StatelessWidget {
     );
   }
 
-  List<({String title, String body, String time, Color color})> _buildNotifications(PasswordProvider provider) {
+  List<({String title, String body, String time, Color color})>
+  _buildNotifications(PasswordProvider provider) {
     final list = <({String title, String body, String time, Color color})>[];
 
     for (final pw in provider.passwords) {
@@ -126,7 +182,11 @@ class NotificationsScreen extends StatelessWidget {
     }
     for (final entry in usedPasswords.entries) {
       if (entry.value > 1 && entry.key.isNotEmpty) {
-        final titles = provider.passwords.where((p) => p.password == entry.key).map((p) => p.title).take(2).join(' and ');
+        final titles = provider.passwords
+            .where((p) => p.password == entry.key)
+            .map((p) => p.title)
+            .take(2)
+            .join(' and ');
         list.add((
           title: 'Duplicate Password',
           body: '$titles share the same password.',

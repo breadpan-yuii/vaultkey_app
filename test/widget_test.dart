@@ -17,7 +17,10 @@ void main() {
     });
 
     test('calculateStrength returns excellent for 16+ chars with symbols', () {
-      expect(calculateStrength('K7#mPq2\$vR9nLw!x'), PasswordStrength.excellent);
+      expect(
+        calculateStrength('K7#mPq2\$vR9nLw!x'),
+        PasswordStrength.excellent,
+      );
     });
   });
 
@@ -39,15 +42,18 @@ void main() {
   });
 
   group('DatabaseHelper', () {
-    test('toMap/fromMap round-trips category and strength enums (via seed data)', () async {
-      // Verify seed data is well-formed
-      for (final pw in mockPasswords) {
-        expect(categoryMeta.containsKey(pw.category), isTrue);
-        expect(strengthMeta.containsKey(pw.strength), isTrue);
-        expect(pw.id, isNotEmpty);
-        expect(pw.title, isNotEmpty);
-      }
-      expect(mockPasswords.length, 8);
-    });
+    test(
+      'toMap/fromMap round-trips category and strength enums (via seed data)',
+      () async {
+        // Verify seed data is well-formed
+        for (final pw in mockPasswords) {
+          expect(categoryMeta.containsKey(pw.category), isTrue);
+          expect(strengthMeta.containsKey(pw.strength), isTrue);
+          expect(pw.id, isNotEmpty);
+          expect(pw.title, isNotEmpty);
+        }
+        expect(mockPasswords.length, 8);
+      },
+    );
   });
 }

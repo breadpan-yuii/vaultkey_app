@@ -1,12 +1,19 @@
 import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+
 import '../models/models.dart';
 import '../theme/app_colors.dart';
 
 String maskPassword(String pw) => '•' * pw.length;
 
-String generateRandomPassword({int length = 16, bool useUpper = true, bool useNumbers = true, bool useSymbols = true}) {
+String generateRandomPassword({
+  int length = 16,
+  bool useUpper = true,
+  bool useNumbers = true,
+  bool useSymbols = true,
+}) {
   String chars = 'abcdefghijklmnopqrstuvwxyz';
   if (useUpper) chars += 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
   if (useNumbers) chars += '0123456789';
@@ -40,15 +47,18 @@ class StrengthBars extends StatelessWidget {
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
-        ...List.generate(4, (i) => Container(
-          width: 20,
-          height: 4,
-          margin: const EdgeInsets.only(right: 4),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(2),
-            color: i < meta.bars ? meta.color : AppColors.cardBorder,
+        ...List.generate(
+          4,
+          (i) => Container(
+            width: 20,
+            height: 4,
+            margin: const EdgeInsets.only(right: 4),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(2),
+              color: i < meta.bars ? meta.color : AppColors.cardBorder,
+            ),
           ),
-        )),
+        ),
         if (showLabel) ...[
           const SizedBox(width: 4),
           Text(
@@ -181,7 +191,10 @@ class PasswordCard extends StatelessWidget {
                 const SizedBox(height: 4),
                 Text(
                   pw.lastUpdated,
-                  style: const TextStyle(color: AppColors.textMuted, fontSize: 10),
+                  style: const TextStyle(
+                    color: AppColors.textMuted,
+                    fontSize: 10,
+                  ),
                 ),
               ],
             ),

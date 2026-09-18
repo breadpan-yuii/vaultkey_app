@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import '../theme/app_colors.dart';
 
 enum NavScreen { home, vault, generator, notifications, profile }
@@ -21,7 +22,7 @@ class BottomNav extends StatelessWidget {
 
     return Container(
       decoration: BoxDecoration(
-        color: AppColors.background.withOpacity(0.95),
+        color: AppColors.background.withValues(alpha: 0.95),
         border: const Border(top: BorderSide(color: AppColors.cardBorder)),
       ),
       child: SafeArea(
@@ -40,14 +41,21 @@ class BottomNav extends StatelessWidget {
                   children: [
                     AnimatedContainer(
                       duration: const Duration(milliseconds: 200),
-                      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 16,
+                        vertical: 6,
+                      ),
                       decoration: BoxDecoration(
-                        color: isActive ? AppColors.primary.withOpacity(0.15) : Colors.transparent,
+                        color: isActive
+                            ? AppColors.primary.withValues(alpha: 0.15)
+                            : Colors.transparent,
                         borderRadius: BorderRadius.circular(12),
                       ),
                       child: Icon(
                         icon,
-                        color: isActive ? AppColors.primary : AppColors.textMuted,
+                        color: isActive
+                            ? AppColors.primary
+                            : AppColors.textMuted,
                         size: 22,
                       ),
                     ),
@@ -57,7 +65,9 @@ class BottomNav extends StatelessWidget {
                       style: TextStyle(
                         fontSize: 10,
                         fontWeight: FontWeight.w600,
-                        color: isActive ? AppColors.primary : AppColors.textMuted,
+                        color: isActive
+                            ? AppColors.primary
+                            : AppColors.textMuted,
                         letterSpacing: 0.03,
                       ),
                     ),

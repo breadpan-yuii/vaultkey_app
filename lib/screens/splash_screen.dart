@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import '../theme/app_colors.dart';
 
 class SplashScreen extends StatelessWidget {
@@ -28,12 +29,16 @@ class SplashScreen extends StatelessWidget {
                           borderRadius: BorderRadius.circular(28),
                           boxShadow: [
                             BoxShadow(
-                              color: AppColors.primary.withOpacity(0.5),
+                              color: AppColors.primary.withValues(alpha: 0.5),
                               blurRadius: 40,
                             ),
                           ],
                         ),
-                        child: const Icon(Icons.lock_rounded, size: 48, color: Colors.white),
+                        child: const Icon(
+                          Icons.lock_rounded,
+                          size: 48,
+                          color: Colors.white,
+                        ),
                       ),
                       Container(
                         width: 128,
@@ -41,7 +46,7 @@ class SplashScreen extends StatelessWidget {
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
                           border: Border.all(
-                            color: AppColors.primary.withOpacity(0.2),
+                            color: AppColors.primary.withValues(alpha: 0.2),
                             width: 2,
                           ),
                         ),
@@ -78,16 +83,16 @@ class SplashScreen extends StatelessWidget {
                     children: [
                       _buildDot(20, AppColors.primary),
                       const SizedBox(width: 6),
-                      _buildDot(8, AppColors.textMuted.withOpacity(0.2)),
+                      _buildDot(8, AppColors.textMuted.withValues(alpha: 0.2)),
                       const SizedBox(width: 6),
-                      _buildDot(8, AppColors.textMuted.withOpacity(0.2)),
+                      _buildDot(8, AppColors.textMuted.withValues(alpha: 0.2)),
                     ],
                   ),
                   const SizedBox(height: 8),
                   Text(
                     'Tap to continue',
                     style: TextStyle(
-                      color: AppColors.textMuted.withOpacity(0.4),
+                      color: AppColors.textMuted.withValues(alpha: 0.4),
                       fontSize: 12,
                     ),
                   ),

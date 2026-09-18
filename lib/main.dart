@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
+
 import 'theme/app_colors.dart';
 import 'providers/password_provider.dart';
 import 'widgets/bottom_nav.dart';
@@ -41,9 +42,7 @@ class VaultKeyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
-      providers: [
-        ChangeNotifierProvider(create: (_) => PasswordProvider()),
-      ],
+      providers: [ChangeNotifierProvider(create: (_) => PasswordProvider())],
       child: MaterialApp(
         title: 'VaultKey',
         debugShowCheckedModeBanner: false,
@@ -55,7 +54,6 @@ class VaultKeyApp extends StatelessWidget {
             primary: AppColors.primary,
             secondary: AppColors.secondary,
             surface: AppColors.surface,
-            background: AppColors.background,
             error: AppColors.error,
           ),
           textTheme: const TextTheme(
@@ -75,7 +73,25 @@ class PasswordOrganizerApp extends StatefulWidget {
   State<PasswordOrganizerApp> createState() => _PasswordOrganizerAppState();
 }
 
-enum AppScreen { splash, onboarding, login, signup, forgot, home, vault, detail, add, edit, search, generator, notifications, profile, settings, about, help }
+enum AppScreen {
+  splash,
+  onboarding,
+  login,
+  signup,
+  forgot,
+  home,
+  vault,
+  detail,
+  add,
+  edit,
+  search,
+  generator,
+  notifications,
+  profile,
+  settings,
+  about,
+  help,
+}
 
 class _PasswordOrganizerAppState extends State<PasswordOrganizerApp> {
   AppScreen _screen = AppScreen.splash;
@@ -174,7 +190,10 @@ class _PasswordOrganizerAppState extends State<PasswordOrganizerApp> {
       case AppScreen.forgot:
         return ForgotPasswordScreen(onBack: () => _go(AppScreen.login));
       case AppScreen.home:
-        return HomeScreen(onNav: (s) => _go(_parseScreen(s)), onDetail: _handleDetail);
+        return HomeScreen(
+          onNav: (s) => _go(_parseScreen(s)),
+          onDetail: _handleDetail,
+        );
       case AppScreen.vault:
         return VaultScreen(
           onNav: (s) => _go(_parseScreen(s)),
@@ -246,7 +265,10 @@ class _PasswordOrganizerAppState extends State<PasswordOrganizerApp> {
                     left: 0,
                     right: 0,
                     bottom: 0,
-                    child: BottomNav(active: _toNavScreen(_screen), onTap: _onNavTap),
+                    child: BottomNav(
+                      active: _toNavScreen(_screen),
+                      onTap: _onNavTap,
+                    ),
                   ),
               ],
             ),

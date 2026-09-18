@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import '../theme/app_colors.dart';
 
 class OnboardingScreen extends StatefulWidget {
@@ -26,7 +27,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     (
       icon: Icons.key_rounded,
       title: 'Smart Password Generator',
-      desc: 'Create unique, unbreakable passwords for every account in one tap.',
+      desc:
+          'Create unique, unbreakable passwords for every account in one tap.',
     ),
   ];
 
@@ -43,9 +45,11 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             width: 140,
             height: 140,
             decoration: BoxDecoration(
-              color: AppColors.primary.withOpacity(0.08),
+              color: AppColors.primary.withValues(alpha: 0.08),
               borderRadius: BorderRadius.circular(40),
-              border: Border.all(color: AppColors.primary.withOpacity(0.2)),
+              border: Border.all(
+                color: AppColors.primary.withValues(alpha: 0.2),
+              ),
             ),
             child: Icon(slide.icon, size: 64, color: AppColors.primary),
           ),
@@ -64,7 +68,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             slide.desc,
             textAlign: TextAlign.center,
             style: TextStyle(
-              color: AppColors.textMuted.withOpacity(0.55),
+              color: AppColors.textMuted.withValues(alpha: 0.55),
               fontSize: 15,
               height: 1.6,
             ),
@@ -72,16 +76,21 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
           const Spacer(),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: List.generate(slides.length, (i) => AnimatedContainer(
-              duration: const Duration(milliseconds: 300),
-              width: i == step ? 24 : 8,
-              height: 8,
-              margin: const EdgeInsets.only(right: 8),
-              decoration: BoxDecoration(
-                color: i == step ? AppColors.primary : AppColors.textMuted.withOpacity(0.2),
-                borderRadius: BorderRadius.circular(4),
+            children: List.generate(
+              slides.length,
+              (i) => AnimatedContainer(
+                duration: const Duration(milliseconds: 300),
+                width: i == step ? 24 : 8,
+                height: 8,
+                margin: const EdgeInsets.only(right: 8),
+                decoration: BoxDecoration(
+                  color: i == step
+                      ? AppColors.primary
+                      : AppColors.textMuted.withValues(alpha: 0.2),
+                  borderRadius: BorderRadius.circular(4),
+                ),
               ),
-            )),
+            ),
           ),
           const SizedBox(height: 24),
           SizedBox(
@@ -98,12 +107,17 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 backgroundColor: AppColors.primary,
                 foregroundColor: Colors.white,
                 padding: const EdgeInsets.symmetric(vertical: 16),
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(16),
+                ),
                 elevation: 0,
               ),
               child: Text(
                 step < slides.length - 1 ? 'Next' : 'Get Started',
-                style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
+                style: const TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w700,
+                ),
               ),
             ),
           ),
@@ -113,7 +127,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               child: Text(
                 'Skip',
                 style: TextStyle(
-                  color: AppColors.textMuted.withOpacity(0.4),
+                  color: AppColors.textMuted.withValues(alpha: 0.4),
                   fontSize: 14,
                 ),
               ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import '../theme/app_colors.dart';
 
 class SettingsScreen extends StatefulWidget {
@@ -31,12 +32,19 @@ class _SettingsScreenState extends State<SettingsScreen> {
               children: [
                 GestureDetector(
                   onTap: widget.onBack,
-                  child: const Icon(Icons.chevron_left_rounded, color: AppColors.textMuted),
+                  child: const Icon(
+                    Icons.chevron_left_rounded,
+                    color: AppColors.textMuted,
+                  ),
                 ),
                 const SizedBox(width: 14),
                 const Text(
                   'Settings',
-                  style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.w800),
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 18,
+                    fontWeight: FontWeight.w800,
+                  ),
                 ),
               ],
             ),
@@ -49,20 +57,44 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   _buildSectionHeader('Security'),
-                  _buildToggleRow('Biometric Unlock', 'Use Face ID or Fingerprint', biometric, (v) => setState(() => biometric = v)),
+                  _buildToggleRow(
+                    'Biometric Unlock',
+                    'Use Face ID or Fingerprint',
+                    biometric,
+                    (v) => setState(() => biometric = v),
+                  ),
                   const SizedBox(height: 8),
-                  _buildToggleRow('Auto-Lock', 'Lock after 5 minutes of inactivity', autoLock, (v) => setState(() => autoLock = v)),
+                  _buildToggleRow(
+                    'Auto-Lock',
+                    'Lock after 5 minutes of inactivity',
+                    autoLock,
+                    (v) => setState(() => autoLock = v),
+                  ),
                   const SizedBox(height: 16),
                   _buildSectionHeader('Sync & Backup'),
-                  _buildToggleRow('Cloud Sync', 'Sync vault across devices', cloudSync, (v) => setState(() => cloudSync = v)),
+                  _buildToggleRow(
+                    'Cloud Sync',
+                    'Sync vault across devices',
+                    cloudSync,
+                    (v) => setState(() => cloudSync = v),
+                  ),
                   const SizedBox(height: 16),
                   _buildSectionHeader('Appearance'),
-                  _buildToggleRow('Dark Mode', 'Always on dark theme', darkMode, (v) => setState(() => darkMode = v)),
+                  _buildToggleRow(
+                    'Dark Mode',
+                    'Always on dark theme',
+                    darkMode,
+                    (v) => setState(() => darkMode = v),
+                  ),
                   const SizedBox(height: 16),
                   _buildSectionHeader('Data'),
                   _buildButton('Export Vault', onTap: () {}),
                   const SizedBox(height: 8),
-                  _buildButton('Clear All Data', isDestructive: true, onTap: () {}),
+                  _buildButton(
+                    'Clear All Data',
+                    isDestructive: true,
+                    onTap: () {},
+                  ),
                 ],
               ),
             ),
@@ -78,7 +110,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
       child: Text(
         title.toUpperCase(),
         style: TextStyle(
-          color: AppColors.textMuted.withOpacity(0.45),
+          color: AppColors.textMuted.withValues(alpha: 0.45),
           fontSize: 11,
           fontWeight: FontWeight.w600,
           letterSpacing: 0.08,
@@ -87,7 +119,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
     );
   }
 
-  Widget _buildToggleRow(String label, String sub, bool value, ValueChanged<bool> onChanged) {
+  Widget _buildToggleRow(
+    String label,
+    String sub,
+    bool value,
+    ValueChanged<bool> onChanged,
+  ) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
       decoration: BoxDecoration(
@@ -102,9 +139,22 @@ class _SettingsScreenState extends State<SettingsScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(label, style: const TextStyle(color: AppColors.textPrimary, fontSize: 14, fontWeight: FontWeight.w600)),
+                Text(
+                  label,
+                  style: const TextStyle(
+                    color: AppColors.textPrimary,
+                    fontSize: 14,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
                 const SizedBox(height: 2),
-                Text(sub, style: TextStyle(color: AppColors.textMuted.withOpacity(0.4), fontSize: 12)),
+                Text(
+                  sub,
+                  style: TextStyle(
+                    color: AppColors.textMuted.withValues(alpha: 0.4),
+                    fontSize: 12,
+                  ),
+                ),
               ],
             ),
           ),
@@ -117,7 +167,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(13),
                 gradient: value ? AppGradients.primary : null,
-                color: value ? null : AppColors.textMuted.withOpacity(0.1),
+                color: value
+                    ? null
+                    : AppColors.textMuted.withValues(alpha: 0.1),
               ),
               child: Stack(
                 children: [
@@ -143,21 +195,34 @@ class _SettingsScreenState extends State<SettingsScreen> {
     );
   }
 
-  Widget _buildButton(String label, {bool isDestructive = false, VoidCallback? onTap}) {
+  Widget _buildButton(
+    String label, {
+    bool isDestructive = false,
+    VoidCallback? onTap,
+  }) {
     return SizedBox(
       width: double.infinity,
       child: OutlinedButton(
         onPressed: onTap,
         style: OutlinedButton.styleFrom(
-          foregroundColor: isDestructive ? AppColors.error : AppColors.textPrimary,
+          foregroundColor: isDestructive
+              ? AppColors.error
+              : AppColors.textPrimary,
           side: BorderSide(
-            color: isDestructive ? AppColors.error.withOpacity(0.2) : AppColors.cardBorder,
+            color: isDestructive
+                ? AppColors.error.withValues(alpha: 0.2)
+                : AppColors.cardBorder,
           ),
           padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 16),
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(14),
+          ),
           alignment: Alignment.centerLeft,
         ),
-        child: Text(label, style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w600)),
+        child: Text(
+          label,
+          style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
+        ),
       ),
     );
   }

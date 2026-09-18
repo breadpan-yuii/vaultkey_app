@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import '../theme/app_colors.dart';
 
 enum PasswordStrength { weak, fair, strong, excellent }
@@ -97,10 +98,26 @@ class StrengthMeta {
 }
 
 const Map<PasswordStrength, StrengthMeta> strengthMeta = {
-  PasswordStrength.weak: StrengthMeta(color: AppColors.strengthWeak, label: 'Weak', bars: 1),
-  PasswordStrength.fair: StrengthMeta(color: AppColors.strengthFair, label: 'Fair', bars: 2),
-  PasswordStrength.strong: StrengthMeta(color: AppColors.strengthStrong, label: 'Strong', bars: 3),
-  PasswordStrength.excellent: StrengthMeta(color: AppColors.strengthExcellent, label: 'Excellent', bars: 4),
+  PasswordStrength.weak: StrengthMeta(
+    color: AppColors.strengthWeak,
+    label: 'Weak',
+    bars: 1,
+  ),
+  PasswordStrength.fair: StrengthMeta(
+    color: AppColors.strengthFair,
+    label: 'Fair',
+    bars: 2,
+  ),
+  PasswordStrength.strong: StrengthMeta(
+    color: AppColors.strengthStrong,
+    label: 'Strong',
+    bars: 3,
+  ),
+  PasswordStrength.excellent: StrengthMeta(
+    color: AppColors.strengthExcellent,
+    label: 'Excellent',
+    bars: 4,
+  ),
 };
 
 final List<PasswordEntry> mockPasswords = [

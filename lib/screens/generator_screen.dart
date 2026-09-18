@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import '../theme/app_colors.dart';
 import '../models/models.dart';
 import '../widgets/shared_widgets.dart';
@@ -43,7 +44,11 @@ class _GeneratorScreenState extends State<GeneratorScreen> {
           children: [
             const Text(
               'Password Generator',
-              style: TextStyle(color: Colors.white, fontSize: 22, fontWeight: FontWeight.w800),
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 22,
+                fontWeight: FontWeight.w800,
+              ),
             ),
             const SizedBox(height: 20),
 
@@ -51,9 +56,12 @@ class _GeneratorScreenState extends State<GeneratorScreen> {
             Container(
               padding: const EdgeInsets.all(16),
               decoration: BoxDecoration(
-                color: AppColors.primary.withOpacity(0.06),
+                color: AppColors.primary.withValues(alpha: 0.06),
                 borderRadius: BorderRadius.circular(16),
-                border: Border.all(color: AppColors.primary.withOpacity(0.2), width: 1.5),
+                border: Border.all(
+                  color: AppColors.primary.withValues(alpha: 0.2),
+                  width: 1.5,
+                ),
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -84,23 +92,29 @@ class _GeneratorScreenState extends State<GeneratorScreen> {
                             padding: const EdgeInsets.symmetric(vertical: 10),
                             decoration: BoxDecoration(
                               color: copied
-                                  ? AppColors.success.withOpacity(0.15)
-                                  : AppColors.primary.withOpacity(0.15),
+                                  ? AppColors.success.withValues(alpha: 0.15)
+                                  : AppColors.primary.withValues(alpha: 0.15),
                               borderRadius: BorderRadius.circular(10),
                             ),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Icon(
-                                  copied ? Icons.check_rounded : Icons.copy_rounded,
+                                  copied
+                                      ? Icons.check_rounded
+                                      : Icons.copy_rounded,
                                   size: 14,
-                                  color: copied ? AppColors.success : AppColors.primary,
+                                  color: copied
+                                      ? AppColors.success
+                                      : AppColors.primary,
                                 ),
                                 const SizedBox(width: 6),
                                 Text(
                                   copied ? 'Copied!' : 'Copy',
                                   style: TextStyle(
-                                    color: copied ? AppColors.success : AppColors.primary,
+                                    color: copied
+                                        ? AppColors.success
+                                        : AppColors.primary,
                                     fontSize: 13,
                                     fontWeight: FontWeight.w600,
                                   ),
@@ -123,12 +137,20 @@ class _GeneratorScreenState extends State<GeneratorScreen> {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Icon(Icons.refresh_rounded, size: 14, color: AppColors.textPrimary.withOpacity(0.7)),
+                                Icon(
+                                  Icons.refresh_rounded,
+                                  size: 14,
+                                  color: AppColors.textPrimary.withValues(
+                                    alpha: 0.7,
+                                  ),
+                                ),
                                 const SizedBox(width: 6),
                                 Text(
                                   'Regenerate',
                                   style: TextStyle(
-                                    color: AppColors.textPrimary.withOpacity(0.7),
+                                    color: AppColors.textPrimary.withValues(
+                                      alpha: 0.7,
+                                    ),
                                     fontSize: 13,
                                     fontWeight: FontWeight.w600,
                                   ),
@@ -160,7 +182,13 @@ class _GeneratorScreenState extends State<GeneratorScreen> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const Text('Length', style: TextStyle(color: AppColors.textPrimary, fontSize: 14)),
+                      const Text(
+                        'Length',
+                        style: TextStyle(
+                          color: AppColors.textPrimary,
+                          fontSize: 14,
+                        ),
+                      ),
                       Text(
                         '$length',
                         style: const TextStyle(
@@ -176,7 +204,7 @@ class _GeneratorScreenState extends State<GeneratorScreen> {
                       activeTrackColor: AppColors.primary,
                       inactiveTrackColor: AppColors.cardBorder,
                       thumbColor: AppColors.primary,
-                      overlayColor: AppColors.primary.withOpacity(0.1),
+                      overlayColor: AppColors.primary.withValues(alpha: 0.1),
                     ),
                     child: Slider(
                       value: length.toDouble(),
@@ -191,11 +219,23 @@ class _GeneratorScreenState extends State<GeneratorScreen> {
             const SizedBox(height: 16),
 
             // Toggles
-            _buildToggle('Uppercase Letters (A–Z)', useUpper, (v) => setState(() => useUpper = v)),
+            _buildToggle(
+              'Uppercase Letters (A–Z)',
+              useUpper,
+              (v) => setState(() => useUpper = v),
+            ),
             const SizedBox(height: 8),
-            _buildToggle('Numbers (0–9)', useNumbers, (v) => setState(() => useNumbers = v)),
+            _buildToggle(
+              'Numbers (0–9)',
+              useNumbers,
+              (v) => setState(() => useNumbers = v),
+            ),
             const SizedBox(height: 8),
-            _buildToggle('Symbols (!@#\$%^&*)', useSymbols, (v) => setState(() => useSymbols = v)),
+            _buildToggle(
+              'Symbols (!@#\$%^&*)',
+              useSymbols,
+              (v) => setState(() => useSymbols = v),
+            ),
             const SizedBox(height: 20),
 
             // Generate button
@@ -207,10 +247,15 @@ class _GeneratorScreenState extends State<GeneratorScreen> {
                   backgroundColor: AppColors.primary,
                   foregroundColor: Colors.white,
                   padding: const EdgeInsets.symmetric(vertical: 15),
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(14),
+                  ),
                   elevation: 0,
                 ),
-                child: const Text('Generate New Password', style: TextStyle(fontSize: 15, fontWeight: FontWeight.w700)),
+                child: const Text(
+                  'Generate New Password',
+                  style: TextStyle(fontSize: 15, fontWeight: FontWeight.w700),
+                ),
               ),
             ),
           ],
@@ -230,7 +275,10 @@ class _GeneratorScreenState extends State<GeneratorScreen> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(label, style: const TextStyle(color: AppColors.textPrimary, fontSize: 14)),
+          Text(
+            label,
+            style: const TextStyle(color: AppColors.textPrimary, fontSize: 14),
+          ),
           GestureDetector(
             onTap: () => onChanged(!value),
             child: AnimatedContainer(
@@ -240,7 +288,9 @@ class _GeneratorScreenState extends State<GeneratorScreen> {
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(13),
                 gradient: value ? AppGradients.primary : null,
-                color: value ? null : AppColors.textMuted.withOpacity(0.1),
+                color: value
+                    ? null
+                    : AppColors.textMuted.withValues(alpha: 0.1),
               ),
               child: Stack(
                 children: [

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import '../theme/app_colors.dart';
 
 class AboutScreen extends StatelessWidget {
@@ -21,12 +22,19 @@ class AboutScreen extends StatelessWidget {
               children: [
                 GestureDetector(
                   onTap: onBack,
-                  child: const Icon(Icons.chevron_left_rounded, color: AppColors.textMuted),
+                  child: const Icon(
+                    Icons.chevron_left_rounded,
+                    color: AppColors.textMuted,
+                  ),
                 ),
                 const SizedBox(width: 14),
                 const Text(
                   'About',
-                  style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.w800),
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 18,
+                    fontWeight: FontWeight.w800,
+                  ),
                 ),
               ],
             ),
@@ -45,17 +53,25 @@ class AboutScreen extends StatelessWidget {
                       borderRadius: BorderRadius.circular(28),
                       boxShadow: [
                         BoxShadow(
-                          color: AppColors.primary.withOpacity(0.4),
+                          color: AppColors.primary.withValues(alpha: 0.4),
                           blurRadius: 32,
                         ),
                       ],
                     ),
-                    child: const Icon(Icons.lock_rounded, size: 44, color: Colors.white),
+                    child: const Icon(
+                      Icons.lock_rounded,
+                      size: 44,
+                      color: Colors.white,
+                    ),
                   ),
                   const SizedBox(height: 16),
                   const Text(
                     'VaultKey',
-                    style: TextStyle(fontSize: 26, fontWeight: FontWeight.w800, color: Colors.white),
+                    style: TextStyle(
+                      fontSize: 26,
+                      fontWeight: FontWeight.w800,
+                      color: Colors.white,
+                    ),
                   ),
                   const SizedBox(height: 4),
                   Text(
@@ -72,7 +88,7 @@ class AboutScreen extends StatelessWidget {
                     'Secure, simple, and private. VaultKey uses AES-256 encryption to protect your passwords. Your master password is never stored or transmitted.',
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                      color: AppColors.textMuted.withOpacity(0.55),
+                      color: AppColors.textMuted.withValues(alpha: 0.55),
                       fontSize: 14,
                       height: 1.6,
                     ),
@@ -83,26 +99,47 @@ class AboutScreen extends StatelessWidget {
                     ('Build', '20240805'),
                     ('Encryption', 'AES-256'),
                     ('License', 'MIT'),
-                  ].map((item) => Container(
-                    margin: const EdgeInsets.only(bottom: 8),
-                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 13),
-                    decoration: BoxDecoration(
-                      color: AppColors.cardBg,
-                      borderRadius: BorderRadius.circular(12),
-                      border: Border.all(color: AppColors.cardBorder),
+                  ].map(
+                    (item) => Container(
+                      margin: const EdgeInsets.only(bottom: 8),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 16,
+                        vertical: 13,
+                      ),
+                      decoration: BoxDecoration(
+                        color: AppColors.cardBg,
+                        borderRadius: BorderRadius.circular(12),
+                        border: Border.all(color: AppColors.cardBorder),
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            item.$1,
+                            style: TextStyle(
+                              color: AppColors.textMuted.withValues(alpha: 0.5),
+                              fontSize: 14,
+                            ),
+                          ),
+                          Text(
+                            item.$2,
+                            style: const TextStyle(
+                              color: AppColors.textPrimary,
+                              fontSize: 14,
+                              fontFamily: 'JetBrains Mono',
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(item.$1, style: TextStyle(color: AppColors.textMuted.withOpacity(0.5), fontSize: 14)),
-                        Text(item.$2, style: const TextStyle(color: AppColors.textPrimary, fontSize: 14, fontFamily: 'JetBrains Mono')),
-                      ],
-                    ),
-                  )),
+                  ),
                   const SizedBox(height: 24),
                   Text(
                     '© 2024 VaultKey. All rights reserved.',
-                    style: TextStyle(color: AppColors.textMuted.withOpacity(0.25), fontSize: 12),
+                    style: TextStyle(
+                      color: AppColors.textMuted.withValues(alpha: 0.25),
+                      fontSize: 12,
+                    ),
                   ),
                 ],
               ),
